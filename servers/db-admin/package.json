@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db:generate": "npx drizzle-kit generate"
+    "db:generate": "pnpm drizzle-kit generate",
+    "db:migrate": "pnpm drizzle-kit migrate",
+    "drizzle:studio": "pnpm drizzle-kit studio"
   },
   "keywords": [],
   "author": "",
