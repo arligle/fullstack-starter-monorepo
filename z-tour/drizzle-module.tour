@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "drizzle-module",
+  "steps": [
+    {
+      "file": "servers/sys-api/src/database/databaseOptions.ts",
+      "description": "从这里开始讲解drizzleModule\nhttps://wanago.io/2024/05/20/api-nestjs-drizzle-orm-postgresql/",
+      "line": 1
+    }
+  ]
+}

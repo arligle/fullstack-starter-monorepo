@@ -1,0 +1,22 @@
+{
+  "name": "db-admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:generate": "npx drizzle-kit generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "drizzle-kit": "^0.23.0",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "@nestjs/config": "^3.2.3",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.32.0",
+    "pg": "^8.12.0"
+  }
+}

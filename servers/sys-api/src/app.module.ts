@@ -6,7 +6,24 @@ import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    ArticlesModule,
+    /***
+     * 全局注册配置模块，并接受一个配置对象,配置对象来自于.env文件，也可以来自于系统环境变量
+     * 配置对象中的值会被注入到ConfigService中，然后可以通过ConfigService.get()方法获取
+     * 配置对象被Joi校验，校验失败会抛出异常
+     */
+    ConfigModule.forRoot({
+      validationSchema: Joi.object({
+        POSTGRES_HOST: Joi.string().required(),
+        POSTGRES_PORT: Joi.number().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required(),
+        POSTGRES_DB: Joi.string().required(),
+      }),
+    }),
+    /***
+     * 全局注册数据库模块，并进行异步配置，这种方式允许在应用启动时动态地配置数据库连接参数。
+     * useFactory方法接受一个ConfigService类型的参数，通过它可以获取配置对象中的值
+     */
     DatabaseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -18,16 +35,8 @@ import { DatabaseModule } from './database/database.module';
         database: configService.get('POSTGRES_DB'),
       }),
     }),
-    // It makes sense to check if the environment variables are available when the application starts.
-    ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_PORT: Joi.number().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
-      }),
-    }),
+
+    ArticlesModule,
   ],
 })
 export class AppModule {}

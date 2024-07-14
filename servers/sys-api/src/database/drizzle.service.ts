@@ -11,3 +11,12 @@ export class DrizzleService {
     this.db = drizzle(this.pool, { schema: databaseSchema });
   }
 }
+
+/***
+ * 把DrizzleService定义为一个可以被注入的类，这是NestJS依赖注入系统的工作原理和机制。
+ * 在这个类的构造函数中@Inject装饰器接受一个字符串参数，它是连接到DrizzleService的连接池的标识符。
+ * 这个类有一个公开的属性db，是一个泛型，指向了DrizzleORM的NodePgDatabase类型，
+ * 并接收了连接池和从外部定义的schema作为参数。
+ * 这个类可以被注入到其他类中，并用于访问DrizzleORM的API。
+ * 它的db属性值就是一个drizzle客户端
+ */
