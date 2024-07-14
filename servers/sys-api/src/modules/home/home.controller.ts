@@ -1,5 +1,5 @@
 import { Controller, Get, Render } from '@nestjs/common';
-import { AppService } from './app.service';
+import { AppService } from './home.service';
 
 @Controller()
 export class AppController {
@@ -7,7 +7,7 @@ export class AppController {
 
   @Get()
   @Render('index')
-  root() {
+  home() {
     return { message: '这是一个内部使用的模版项目' };
   }
 }

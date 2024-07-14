@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DrizzleService } from '../database/drizzle.service';
-import { databaseSchema } from '../database/databaseSchema';
+import { DrizzleService } from '../../core/database/drizzle.service';
+import { databaseSchema } from '../../core/database/databaseSchema';
 import { eq } from 'drizzle-orm';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
