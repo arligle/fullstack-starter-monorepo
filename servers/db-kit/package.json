@@ -6,7 +6,9 @@
   "scripts": {
     "db:generate": "pnpm drizzle-kit generate",
     "db:migrate": "pnpm drizzle-kit migrate",
-    "drizzle:studio": "pnpm drizzle-kit studio"
+    "drizzle:studio": "pnpm drizzle-kit studio",
+    "db:introspect": "pnpm drizzle-kit introspect",
+    "tooljetdb:introspect": "pnpm drizzle-kit introspect --config=src/config/tooljet.config.ts"
   },
   "keywords": [],
   "author": "",
