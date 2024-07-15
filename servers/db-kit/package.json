@@ -1,18 +1,22 @@
 {
-  "name": "db-admin",
+  "name": "db-kit",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "db:generate": "pnpm drizzle-kit generate",
     "db:migrate": "pnpm drizzle-kit migrate",
-    "drizzle:studio": "pnpm drizzle-kit studio"
+    "drizzle:studio": "pnpm drizzle-kit studio",
+    "db:introspect": "pnpm drizzle-kit introspect",
+    "tooljetdb:introspect": "pnpm drizzle-kit introspect --config=src/config/tooljet.config.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/pg": "^8.11.6",
     "drizzle-kit": "^0.23.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.5.3"
   },
   "dependencies": {

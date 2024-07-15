@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
-import { ArticlesModule } from './articles/articles.module';
-import { DatabaseModule } from './database/database.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ArticlesModule } from './modules/articles/articles.module';
+import { DatabaseModule } from './core/database/database.module';
+import { AppController } from './modules/home/home.controller';
+import { AppService } from './modules/home/home.service';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -39,6 +40,8 @@ import { AppService } from './app.service';
     }),
 
     ArticlesModule,
+
+    UserModule,
   ],
 
   controllers: [AppController],
