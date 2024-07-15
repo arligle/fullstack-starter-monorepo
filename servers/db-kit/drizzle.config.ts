@@ -3,8 +3,8 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export default {
-  schema: './src/schema/sys-schema.ts',
-  out: './drizzle',
+  schema: './src/sysdb.schema.ts',
+  out: './migrate_sql',
   dialect: 'postgresql',
   dbCredentials: {
     url: process.env.DATABASE_URL,
