@@ -4,5 +4,12 @@
       "mode": "auto"
     }
   ],
-  "cSpell.words": ["tooljet", "tooljetdb"]
+  "cSpell.words": [
+    "commitlint",
+    "dbml",
+    "nestjs",
+    "onnotice",
+    "tooljet",
+    "tooljetdb"
+  ]
 }
