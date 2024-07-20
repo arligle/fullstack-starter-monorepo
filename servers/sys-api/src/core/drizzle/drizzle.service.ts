@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
-import { CONNECTION_POOL } from './database.module-definition';
+import { CONNECTION_POOL } from './drizzle.module-definition';
 import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres';
-import { databaseSchema } from './databaseSchema';
+import { drizzleSchema } from '@/core/drizzle/schema/drizzle.schema';
 
 @Injectable()
 export class DrizzleService {
-  public db: NodePgDatabase<typeof databaseSchema>;
+  public database: NodePgDatabase<typeof drizzleSchema>;
   constructor(@Inject(CONNECTION_POOL) private readonly pool: Pool) {
-    this.db = drizzle(this.pool, { schema: databaseSchema });
+    this.database = drizzle(this.pool, { schema: drizzleSchema });
   }
 }
 

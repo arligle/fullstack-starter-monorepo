@@ -7,7 +7,7 @@ import {
   uuid,
   varchar
 } from "drizzle-orm/pg-core";
-import organizations from "./organizations";
+import organizations from "./organizations.schema";
 import { source, status } from "./enum";
 
 export const users = pgTable(
@@ -43,5 +43,6 @@ export const users = pgTable(
     };
   },
 );
+
 export type User = InferSelectModel<typeof users>;
 export default users;

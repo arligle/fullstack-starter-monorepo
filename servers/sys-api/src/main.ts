@@ -24,7 +24,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(`${globalPrefix}/docs`, app, document);
-
+  // cors
+  app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.setGlobalPrefix(globalPrefix);
   await app.listen(port);

@@ -3,8 +3,8 @@ import {
   ConfigurableDatabaseModule,
   CONNECTION_POOL,
   DATABASE_OPTIONS,
-} from './database.module-definition';
-import { DatabaseOptions } from './databaseOptions';
+} from './drizzle.module-definition';
+import { DatabaseOptions } from './options';
 import { Pool } from 'pg';
 import { DrizzleService } from './drizzle.service';
 
@@ -28,4 +28,4 @@ import { DrizzleService } from './drizzle.service';
     },
   ],
 })
-export class DatabaseModule extends ConfigurableDatabaseModule {}
+export class DrizzleModule extends ConfigurableDatabaseModule { }

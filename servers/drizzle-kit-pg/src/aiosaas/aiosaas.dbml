@@ -15,3 +15,19 @@ Table "users" {
   "company_name" varchar
   "phone_number" varchar
 }
+
+Table "organizations" {
+  "id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "name" varchar
+  "domain" varchar
+  "created_at" timestamp [default: `now()`]
+  "updated_at" timestamp [default: `now()`]
+  "enable_sign_up" boolean [not null, default: false]
+  "inherit_sso" boolean [not null, default: true]
+  "slug" varchar(50)
+
+  Indexes {
+    name [unique, name: "name_organizations_unique"]
+    slug [unique, name: "slug_organizations_unique"]
+  }
+}
