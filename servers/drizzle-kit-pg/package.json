@@ -2,21 +2,28 @@
   "name": "drizzle-kit-pg",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "tsx src/index.ts",
+    "dev:api": "tsx --watch src/aiosaas/api/index.ts",
+    "dev:client": "tsx src/aiosaas/client/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "drizzle:studio": "drizzle-kit studio",
     "db:introspect": "drizzle-kit introspect",
+    "db_custom:migrate": "cross-env DB_MIGRATING=true tsx src/aiosaas/dbkit/migrate.ts",
     "tooljetdb:introspect": "drizzle-kit introspect --config=src/config/tooljet.config.ts",
     "tooljetdb:generate": "drizzle-kit generate --config=src/config/tooljet.config.ts",
-    "tooljetdb:migrate": "drizzle-kit migrate --config=src/config/tooljet.config.ts"
+    "tooljetdb:migrate": "drizzle-kit migrate --config=src/config/tooljet.config.ts",
+    "db_aiosaas:generate": "drizzle-kit generate --config=src/aiosaas/aiosaas.config.ts",
+    "db_aiosaas:migrate": "drizzle-kit migrate --config=src/aiosaas/aiosaas.config.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.40.3",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "drizzle-orm": "^0.32.0",
@@ -27,14 +34,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/eslint": "^8.56.5",
+    "@types/express": "^4.17.21",
     "@types/node": "^20.11.24",
     "cross-env": "^7.0.3",
     "drizzle-kit": "^0.23.0",
+    "eslint": "^8.57.0",
     "tsc": "^2.0.4",
     "tsc-alias": "^1.8.10",
     "tsx": "^3.12.6",
-    "typescript": "^5.5.3",
-    "@types/eslint": "^8.56.5",
-    "eslint": "^8.57.0"
+    "typescript": "^5.5.3"
   }
 }
