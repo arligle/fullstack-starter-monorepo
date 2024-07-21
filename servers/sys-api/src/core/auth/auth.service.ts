@@ -19,19 +19,19 @@ export class AuthService {
     db = this.databaseService.database;
 
     /**
-     * Signs up a new user by checking if the user already exists,
-     * hashing the password, and saving the user to the database.
+     * 通过检查用户是否已经存在来注册新用户，
+     * 对密码进行哈希处理，并将用户保存到数据库中。
      * 
-     * @param {AuthBaseDto} body - The data transfer object containing email and password.
-     * @param {Request} req - The Express request object.
-     * @param {Response} res - The Express response object.
-     * @returns {Promise<Response>} - The HTTP response with the created user data.
-     * @throws {ConflictException} - If the user already exists in the database.
+     * @param {AuthBaseDto} body -包含电子邮件和密码的数据传输对象。
+     * @param {Request} req -Express 请求对象。
+     * @param {Response} res -Express 响应对象。
+     * @returns {Promise<Response>} -带有创建的用户数据的 HTTP 响应。
+     * @throws {ConflictException} -如果用户已存在于数据库中。
      */
     async signup(body: AuthBaseDto, req: Request, res: Response): responseT {
         const { email, password } = body;
 
-        // check if user exists
+        // 检查用户是否存在
         const userExists: boolean = await existsInDatabase({
             column: 'email',
             database: this.db,
@@ -39,20 +39,20 @@ export class AuthService {
             value: email
         });
 
-        // if user exists, throw error
+        // 如果用户存在，则抛出错误
         if (userExists) throw new ConflictException('User already exists');
 
-        // hash the password
+        // 密码哈希
         const hashedPassword = await hashPassword(password, 12);
 
-        // create user in database
+        // 在数据库中创建用户
         const user = await createInDatabase({
             database: this.db,
             table: drizzleSchema.users,
             values: { email, password: hashedPassword }
         });
 
-        // create and return response
+        // 创建并返回响应
         const response = CustomResponse({
             data: {
                 id: user.id as string,
@@ -66,19 +66,19 @@ export class AuthService {
     }
 
     /**
-     * Signs in a user by validating credentials and generating a JWT token.
+     * 通过验证凭据并生成 JWT 令牌来登录用户。
      * 
-     * @param {AuthBaseDto} body - The data transfer object containing email and password.
-     * @param {Request} req - The Express request object.
-     * @param {Response} res - The Express response object.
-     * @returns {Promise<Response>} - The HTTP response with the JWT token.
-     * @throws {UnauthorizedException} - If the credentials are invalid.
-     * @throws {InternalServerErrorException} - If the token generation fails.
+     * @param {AuthBaseDto} body -包含电子邮件和密码的数据传输对象。
+     * @param {Request} req -Express 请求对象。
+     * @param {Response} res -Express 响应对象。
+     * @returns {Promise<Response>} -带有 JWT 令牌的 HTTP 响应。
+     * @throws {UnauthorizedException} -如果凭据无效。
+     * @throws {InternalServerErrorException} -如果令牌生成失败。
      */
     async signin(body: AuthBaseDto, req: Request, res: Response): responseT {
         const { email, password } = body;
 
-        // check if user exists
+        // 检查用户是否存在
         const userExists: any = await existsInDatabase({
             column: 'email',
             database: this.db,
@@ -86,26 +86,27 @@ export class AuthService {
             value: email
         });
 
-        // if user does not exist, throw error
-        if (!userExists) throw new UnauthorizedException('Invalid credentials');
+        console.log(userExists)
 
-        // get user details from database
+        // 如果用户不存在，则抛出错误
+        if (!userExists) throw new UnauthorizedException('邮箱匹配失败!');
+
+        // 从数据库获取用户详细信息
         const { id: userId, email: userEmail, password: userPassword } = userExists;
 
-        // compare passwords
+        // 比较密码
         const isMatch = await comparePassword(password, userPassword as string);
+        // 如果密码不匹配，则抛出错误
+        if (!isMatch) throw new UnauthorizedException('密码匹配失败！');
 
-        // if passwords do not match, throw error
-        if (!isMatch) throw new UnauthorizedException('Invalid credentials');
-
-        // generate JWT token
+        // 生成 JWT 令牌
         const payload = { id: userId, email: userEmail };
         const token = await this.jwtService.sign(payload);
 
-        // if token is not generated, throw error
+        // 如果没有生成token，则抛出错误
         if (!token) throw new InternalServerErrorException('Failed to generate token');
 
-        // set JWT token in cookie
+        // 在 cookie 中设置 JWT 令牌
         res.cookie('user_credentials', token, {
             httpOnly: true,
             secure: true,
@@ -115,7 +116,7 @@ export class AuthService {
         // set jwt in headers
         res.setHeader('Authorization', `Bearer ${token}`);
 
-        // create and return response
+        // 创建并返回响应
         const response = CustomResponse({
             data: token,
             message: "user logged in",
@@ -126,17 +127,17 @@ export class AuthService {
     }
 
     /**
-     * Signs out a user by clearing the authentication cookie and removing the authorization header.
+     * 通过清除身份验证 cookie 并删除授权标头来注销用户。
      * 
-     * @param {Request} req - The Express request object.
-     * @param {Response} res - The Express response object.
-     * @returns {Promise<Response>} - The HTTP response confirming the user has been logged out.
+     * @param {Request} req -Express 请求对象。
+     * @param {Response} res -Express 响应对象。
+     * @returns {Promise<Response>} -确认用户已注销的 HTTP 响应。
      */
     async signout(req: Request, res: Response): responseT {
-        res.clearCookie('user_credentials'); // clear jwt token in cookie
+        res.clearCookie('user_credentials'); // 清除 cookie 中的 jwt 令牌
         res.setHeader('Authorization', ``); // clear jwt token in headers
 
-        // create and return response
+        // 创建并返回响应
         const response = CustomResponse({
             data: null,
             message: "user logged out",

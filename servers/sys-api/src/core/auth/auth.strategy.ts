@@ -10,8 +10,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor() {
         super({
             jwtFromRequest: ExtractJwt.fromExtractors([
-                ExtractJwt.fromAuthHeaderAsBearerToken(), // extract token from header
-                JwtStrategy.extractTokenFromCookies // extract token from cookies
+                ExtractJwt.fromAuthHeaderAsBearerToken(), // 从标头中提取令牌
+                JwtStrategy.extractTokenFromCookies // 从 cookie 中提取令牌
             ]),
             ignoreExpiration: false,
             secretOrKey: tokenSecret

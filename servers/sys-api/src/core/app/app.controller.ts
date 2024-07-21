@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Render, Res } from '@nestjs/common';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('首页')
 @Controller()
 export class AppController {
   // constructor() { }

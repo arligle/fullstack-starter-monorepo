@@ -5,25 +5,25 @@ import { ResponseMessage } from '@/core/app/app.response';
 import { AuthBaseDto } from './auth.dto';
 import { AuthService } from './auth.service';
 
-@ApiTags('Authentication')
+@ApiTags('认证')
 @Controller('auth')
 export class AuthController {
 
     constructor(private readonly authService: AuthService) { }
 
     /**
-    * Signs up a new user.
+    * 注册新用户。
     * 
-    * Params:
-    * - `body {AuthBaseDto}`: The data transfer object containing email and password.
+    * 参数：
+    * -`body {AuthBaseDto}`：包含电子邮件和密码的数据传输对象。
     * 
-    * Returns:
-    * - `201 {Promise<Response>}`: The HTTP response with the created user data.
+    * 返回：
+    * -`201 {Promise<Response>}`：带有创建的用户数据的 HTTP 响应。
     * 
-    * @param {AuthBaseDto} body - The data transfer object containing email and password.
-    * @param {Request} req - The Express request object.
-    * @param {Response} res - The Express response object.
-    * @returns {Promise<Response>} - The HTTP response with the created user data.
+    * @param {AuthBaseDto} body -包含电子邮件和密码的数据传输对象。
+    * @param {Request} req -Express 请求对象。
+    * @param {Response} res -Express 响应对象。
+    * @returns {Promise<Response>} -带有创建的用户数据的 HTTP 响应。
     */
     @Post("signup")
     // @ResponseMessage('User created') // custom response message for interceptor
@@ -32,18 +32,18 @@ export class AuthController {
     }
 
     /**
-    * Signs in an existing user.
+    * 登录现有用户。
     * 
-    * Params:
-    * - `body {AuthBaseDto}`: The data transfer object containing email and password.
+    * 参数：
+    * -`body {AuthBaseDto}`：包含电子邮件和密码的数据传输对象。
     * 
-    * Returns:
-    * - `200 {Promise<Response>}`: The HTTP response with the JWT token.
+    * 返回：
+    * -`200 {Promise<Response>}`：带有 JWT 令牌的 HTTP 响应。
     * 
-    * @param {AuthBaseDto} body - The data transfer object containing email and password.
-    * @param {Request} req - The Express request object.
-    * @param {Response} res - The Express response object.
-    * @returns {Promise<Response>} - The HTTP response with the JWT token.
+    * @param {AuthBaseDto} body -包含电子邮件和密码的数据传输对象。
+    * @param {Request} req -Express 请求对象。
+    * @param {Response} res -Express 响应对象。
+    * @returns {Promise<Response>} -带有 JWT 令牌的 HTTP 响应。
     */
     @Post("signin")
     @ResponseMessage('User logged in')
@@ -52,14 +52,14 @@ export class AuthController {
     }
 
     /**
-     * Signs out the current user.
+     * 注销当前用户。
      * 
-     * Returns:
-     * - `200 {Promise<Response>}`: The HTTP response confirming the user has been logged out.
+     * 返回：
+     * -`200 {Promise<Response>}`：确认用户已注销的 HTTP 响应。
      * 
-     * @param {Request} req - The Express request object.
-     * @param {Response} res - The Express response object.
-     * @returns {Promise<Response>} - The HTTP response confirming the user has been logged out.
+     * @param {Request} req -Express 请求对象。
+     * @param {Response} res -Express 响应对象。
+     * @returns {Promise<Response>} -确认用户已注销的 HTTP 响应。
  */
     @Get("signout")
     signout(@Req() req: Request, @Res() res: Response) {
