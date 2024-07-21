@@ -5,6 +5,7 @@ import Joi from 'joi';
 import { DrizzleModule } from '@/core/drizzle/drizzle.module';
 import { AppController } from '@/core/app/app.controller';
 import { UsersService } from './modules/users/users.service';
+import { AuthModule } from './core/auth/auth.module';
 
 const imports = [
   /***
@@ -37,18 +38,14 @@ const imports = [
     }),
   }
   ),
-  // DrizzleModule,
+  AuthModule,
   UsersModule,
 ];
 
 @Module({
   imports,
-  controllers: [
-    AppController,
-  ],
-  providers: [
-    UsersService
-  ],
+  controllers: [AppController],
+  providers: [],
 })
 // eslint-disable-next-line prettier/prettier
 export class AppModule { }

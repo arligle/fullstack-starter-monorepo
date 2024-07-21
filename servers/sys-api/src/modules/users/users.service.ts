@@ -2,8 +2,8 @@
 import { ForbiddenException, Get, Injectable, NotFoundException, Param } from '@nestjs/common';
 import { DrizzleService } from '@/core/drizzle/drizzle.service';
 import { Request } from 'express';
-import { drizzleSchema } from '@/core/drizzle/schema/drizzle.schema';
-import { existsInDatabase, extractFieldsInDatabase } from '@/core/drizzle/crud.database';
+import { drizzleSchema } from '@/core/drizzle/schema/drizzle-schema';
+import { existsInDatabase, extractFieldsInDatabase } from '@/core/drizzle/crud-frame';
 import { first } from 'rxjs';
 
 @Injectable()

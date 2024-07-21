@@ -1,7 +1,7 @@
 import { Column, ColumnBaseConfig, ColumnDataType, SelectedFields, sql, TableConfig } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { PgTable } from "drizzle-orm/pg-core";
-import { drizzleSchema } from "./schema/drizzle.schema";
+import { drizzleSchema } from "./schema/drizzle-schema";
 
 type result = { [key: string]: unknown; };
 

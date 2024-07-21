@@ -17,6 +17,7 @@ export const users = pgTable(
     first_name: varchar('first_name'),
     last_name: varchar('last_name'),
     email: varchar('email'),
+    password: varchar('password'),
     password_digest: varchar('password_digest'),
     invitation_token: varchar('invitation_token'),
     forgot_password_token: varchar('forgot_password_token'),

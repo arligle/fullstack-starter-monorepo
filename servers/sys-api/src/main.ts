@@ -7,30 +7,29 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  const globalPrefix = 'api';
   const port = process.env.PORT || 3000;
+  // globals
+  app.setGlobalPrefix('api/v1');
   // MVC 导入hbs模版引擎
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
 
-  // swagger api docs
+  // swagger config
   const options = new DocumentBuilder()
-    .setTitle('FULL STACK NESTJS')
-    .setDescription('The API DOCUMENT')
+    .setTitle('Fullstack Starter Monorepo')
+    .setDescription('集成了Casl 和 hbs模版')
     .setVersion('1.0')
-    .addTag('Home')
-    .addBearerAuth()
+    .addOAuth2()
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup(`${globalPrefix}/docs`, app, document);
+  SwaggerModule.setup('docs', app, document);
   // cors
   app.enableCors();
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  app.setGlobalPrefix(globalPrefix);
+
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
+    `🚀 Application is running on: http://localhost:${port}`,
   );
 }
 bootstrap();
